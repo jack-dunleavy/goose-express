@@ -1,6 +1,6 @@
 {
   "name": "goose-express",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Configurable express layer for your mongoose models",
   "main": "index.js",
   "author": "jack.dunleavy1@gmail.com",
