@@ -2,7 +2,11 @@
   "name": "goose-express",
   "version": "0.0.3",
   "description": "Configurable express layer for your mongoose models",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "engines": {
+    "node": ">12.14.1"
+  },
   "author": "jack.dunleavy1@gmail.com",
   "license": "MIT",
   "devDependencies": {
