@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "engines": {
-    "node": ">12.14.1"
+    "node": ">12"
   },
   "author": "jack.dunleavy1@gmail.com",
   "license": "MIT",
