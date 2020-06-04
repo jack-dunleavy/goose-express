@@ -183,6 +183,7 @@ describe("The PATCH / handler", () => {
         .expect("content-type", /json/);
 
       expect(response.body.data.nested[0].dayOfWeek).toEqual("Thursday");
+      expect(response.body.data.nested[0].activity).toEqual("Football");
     });
 
     it("Should update fields on the nested document", async () => {
@@ -224,8 +225,8 @@ describe("The PATCH / handler", () => {
           {
             location: "body",
             msg:
-              'Cast to embedded failed for value "{ dayOfWeek: { invalid: \'format\' } }" at path "nested"',
-            path: "nested",
+              'Cast to string failed for value "{ invalid: \'format\' }" at path "dayOfWeek"',
+            path: "dayOfWeek",
           },
         ]
       );

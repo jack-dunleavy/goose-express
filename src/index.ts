@@ -340,13 +340,30 @@ class GooseExpress<T extends Model<Document>> {
         return res.status(200).json(updateResult);
       }
 
-      const updateBody = path.targetIsSubDoc ? req.body : req.body.update;
+      /**
+       * If the target is a subdoc we map the req body into an object containing
+       * specific keys on the target sub-document to replace:
+       *
+       * {
+       *   document.nest.[$arrayFilter].field: newValue
+       *   document.nest.[$arrayFilter].field2: newValue2
+       * }
+       *
+       * Otherwise we replace the target with the value of req.body.update (single field)
+       */
+      const updateBody = path.targetIsSubDoc
+        ? Object.fromEntries(
+            Object.entries(req.body).map((entry) => {
+              return [[`${path.arrayFilterSearchPath}.${entry[0]}`], entry[1]];
+            })
+          )
+        : { [path.arrayFilterSearchPath]: req.body.update };
 
       const updated = await this.handleValidationErrors(() =>
         this.model.findByIdAndUpdate(
           path.pathSegments[0],
           {
-            $set: { [path.arrayFilterSearchPath]: updateBody },
+            $set: updateBody,
           },
           {
             new: true,
