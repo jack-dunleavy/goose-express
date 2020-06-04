@@ -74,11 +74,13 @@ describe("The POST / handler", () => {
         .expect("content-type", /json/);
 
       expect(response.body).toEqual({
-        _id: expect.any(String),
-        name: "Post Test 1",
-        optionalField: "optional1",
-        nested: [],
-        __v: 0,
+        data: {
+          _id: expect.any(String),
+          name: "Post Test 1",
+          optionalField: "optional1",
+          nested: [],
+          __v: 0,
+        },
       });
 
       const mongoDoc = await TestModel.findById(response.body._id);

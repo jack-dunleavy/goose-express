@@ -213,7 +213,7 @@ class GooseExpress<T extends Model<Document>> {
 
         await this.handleValidationErrors(() => document.validate());
         await document.save();
-        return res.status(201).json(document);
+        return res.status(201).json({ data: document });
       }
 
       /**
