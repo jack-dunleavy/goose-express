@@ -69,9 +69,11 @@ describe("The DELETE / handler", () => {
         .expect(200);
 
       expect(response.body).toEqual({
-        n: 1,
-        ok: 1,
-        deletedCount: 1,
+        data: {
+          n: 1,
+          ok: 1,
+          deletedCount: 1,
+        },
       });
 
       const doc = await TestModel.findById(testDoc1._id, "", { lean: true });

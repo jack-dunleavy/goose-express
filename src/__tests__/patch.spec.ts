@@ -74,7 +74,9 @@ describe("The PATCH / handler", () => {
             name: "UPDATED",
           });
 
-        expect(response.body).toEqual({ ...testDoc1, name: "UPDATED" });
+        expect(response.body).toEqual({
+          data: { ...testDoc1, name: "UPDATED" },
+        });
       });
     });
 
@@ -96,9 +98,11 @@ describe("The PATCH / handler", () => {
       });
 
       expect(response.body).toEqual({
-        n: 1,
-        nModified: 1,
-        ok: 1,
+        data: {
+          n: 1,
+          nModified: 1,
+          ok: 1,
+        },
       });
     });
 
@@ -130,8 +134,10 @@ describe("The PATCH / handler", () => {
       });
 
       expect(response.body).toEqual({
-        ...testDoc1,
-        optionalField: "PATCHED",
+        data: {
+          ...testDoc1,
+          optionalField: "PATCHED",
+        },
       });
     });
 

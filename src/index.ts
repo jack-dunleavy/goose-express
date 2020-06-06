@@ -331,7 +331,7 @@ class GooseExpress<T extends Model<Document>> {
           });
         }
 
-        return res.status(200).json(updateResult);
+        return res.status(200).json({ data: updateResult });
       }
 
       if (!path.pathSegments[0] || !this.isValidOid(path.pathSegments[0])) {
@@ -354,7 +354,7 @@ class GooseExpress<T extends Model<Document>> {
             notFoundErrors.idNotFound(path.pathSegments[0])
           );
         }
-        return res.status(200).json(updateResult);
+        return res.status(200).json({ data: updateResult });
       }
 
       /**
@@ -419,7 +419,7 @@ class GooseExpress<T extends Model<Document>> {
 
         const result = await this.model.deleteMany(mongoQuery);
 
-        res.status(200).json(result);
+        res.status(200).json({ data: result });
       }
 
       /**
