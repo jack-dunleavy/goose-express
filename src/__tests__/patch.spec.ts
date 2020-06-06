@@ -65,6 +65,19 @@ describe("The PATCH / handler", () => {
   });
 
   describe("When the request is for the collection", () => {
+    describe("When the multiplicity is one", () => {
+      it("Should patch the matching document", async () => {
+        const query = { name: "name1" };
+        const response = await request(app)
+          .patch(`?query=${JSON.stringify(query)}&multiplicity=one`)
+          .send({
+            name: "UPDATED",
+          });
+
+        expect(response.body).toEqual({ ...testDoc1, name: "UPDATED" });
+      });
+    });
+
     it("Should update matching documents", async () => {
       const query = { name: "name1" };
       const response = await request(app)

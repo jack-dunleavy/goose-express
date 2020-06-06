@@ -116,7 +116,7 @@ class GooseExpress<T extends Model<Document>> {
     withCatch(async (req: Request, res: Response, next: NextFunction) => {
       const path = new Path(req.path);
       const documentID = path.pathSegments[0];
-      const { fields } = req.query;
+      const { fields, multiplicity } = req.query;
       let mongoQuery = this.parseQueryFilter(req.query.query);
       let projection: string[] = [];
 
@@ -144,9 +144,15 @@ class GooseExpress<T extends Model<Document>> {
        * Collection Level Query
        */
       if (path.pathSegments.length === 0) {
-        const documents = await this.model.find(mongoQuery, projection);
+        let response;
 
-        return res.status(200).json({ data: documents });
+        if (multiplicity === "one") {
+          response = await this.model.findOne(mongoQuery, projection);
+        } else {
+          response = await this.model.find(mongoQuery, projection);
+        }
+
+        return res.status(200).json({ data: response });
       }
 
       /**
@@ -302,7 +308,7 @@ class GooseExpress<T extends Model<Document>> {
 
   public patch = (): RouteMiddleware[] => [
     withCatch(async (req: Request, res: Response) => {
-      const { query } = req.query;
+      const { query, multiplicity } = req.query;
       let mongoQuery = {};
 
       const path = new Path(req.path);
@@ -312,7 +318,18 @@ class GooseExpress<T extends Model<Document>> {
           mongoQuery = parseJSONQueryParam(query, "query");
         }
 
-        const updateResult = await this.model.updateMany(mongoQuery, req.body);
+        let updateResult;
+        if (multiplicity === "one") {
+          updateResult = await this.model.findOneAndUpdate(
+            mongoQuery,
+            req.body,
+            { lean: true, new: true }
+          );
+        } else {
+          updateResult = await this.model.updateMany(mongoQuery, req.body, {
+            lean: true,
+          });
+        }
 
         return res.status(200).json(updateResult);
       }

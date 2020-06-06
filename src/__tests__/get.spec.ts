@@ -104,6 +104,28 @@ describe("The GET / handler", () => {
     });
   });
 
+  describe("The 'findOne' query parameter", () => {
+    it("Should find the first matching document", async () => {
+      const query = { name: "name1" };
+      const response = await request(app)
+        .get(`?query=${JSON.stringify(query)}&multiplicity=one`)
+        .expect(200)
+        .expect("content-type", /json/);
+
+      expect(response.body.data).toEqual(testDoc1);
+    });
+
+    it("Should honor explicit setting to false", async () => {
+      const query = { name: "name1" };
+      const response = await request(app)
+        .get(`?query=${JSON.stringify(query)}&multiplicity=many`)
+        .expect(200)
+        .expect("content-type", /json/);
+
+      expect(response.body.data).toEqual([testDoc1]);
+    });
+  });
+
   describe("The 'fields' query parameter", () => {
     it("Should return only the requested fields", async () => {
       const fields = ["name", "__v"];
