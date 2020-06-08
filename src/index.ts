@@ -269,17 +269,17 @@ class GooseExpress<T extends Model<Document>> {
        */
       if (path.pathSegments.length === 1) {
         const updateResult = await this.handleValidationErrors(() =>
-          this.model.findByIdAndUpdate(
-            path.pathSegments[0],
-            req.body,
+          this.model.findByIdAndUpdate(path.pathSegments[0], req.body, {
             // @ts-ignore - overwrite isn't included in the declaration unfortunately
-            { overwrite: true, upsert: true, lean: true, runValidators: true }
-          )
+            overwrite: true,
+            upsert: true,
+            new: true,
+            lean: true,
+            runValidators: true,
+          })
         );
 
-        const created = updateResult === null;
-
-        return res.status(created ? 201 : 200).send();
+        return res.status(200).json({ data: updateResult });
       }
 
       /**

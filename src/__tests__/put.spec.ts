@@ -105,7 +105,7 @@ describe("The PUT /:id handler", () => {
     });
 
     it("Should create the document if it does not exist", async () => {
-      await request(app).put(`/${testDoc2._id}`).send(testDoc2).expect(201);
+      await request(app).put(`/${testDoc2._id}`).send(testDoc2).expect(200);
 
       const doc = await TestModel.findById(testDoc2._id, "", { lean: true });
 
