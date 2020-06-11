@@ -12,3 +12,14 @@ export const parseJSONQueryParam = (jsonString: string, field: string) => {
     );
   }
 };
+
+export const parseQueryFilter = (query: any) => {
+  if (typeof query === "string") {
+    return parseJSONQueryParam(query, "query");
+  }
+  return {};
+};
+
+export const isValidOid = (oid: string) => {
+  return /^[0-9a-fA-F]{24}$/.test(oid);
+};

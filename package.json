@@ -17,6 +17,7 @@
     "@types/mongoose": "^5.7.20",
     "@types/node": "^14.0.1",
     "@types/supertest": "^2.0.9",
+    "@types/qs": "^6.9.3",
     "body-parser": "^1.19.0",
     "jest": "^26.0.1",
     "lodash": "^4.17.15",
@@ -24,13 +25,13 @@
     "mongoose": "^5.9.14",
     "supertest": "^4.0.2",
     "ts-jest": "^26.0.0",
-    "typescript": "^3.9.2"
+    "typescript": "^3.9.2",
+    "express": "^4.17.1"
   },
   "scripts": {
     "test": "jest --watchAll --no-cache",
     "build": "npx tsc"
   },
-  "dependencies": {},
   "peerDependencies": {
     "express": "^4.17.1",
     "mongoose": "^5.9.14"

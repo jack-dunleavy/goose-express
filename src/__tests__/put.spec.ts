@@ -84,6 +84,36 @@ describe("The PUT /:id handler", () => {
     jest.clearAllMocks();
   });
 
+  describe("When the request specifies a document by query", () => {
+    it("should update the specified document", async () => {
+      const query = { name: "name1" };
+      await request(app)
+        .put(`?query=${JSON.stringify(query)}`)
+        .send({ name: "FOUND_AND_UPDATED" })
+        .expect(200)
+        .expect("content-type", /json/);
+
+      const doc = await TestModel.findById(testDoc1._id, "", { lean: true });
+
+      expect(doc).toEqual({
+        _id: new mongoose.Types.ObjectId(testDoc1._id),
+        name: "FOUND_AND_UPDATED",
+        nested: [],
+      });
+    });
+
+    it("should return null if the document did not match", async () => {
+      const query = { name: "no match" };
+      const response = await request(app)
+        .put(`?query=${JSON.stringify(query)}`)
+        .send({ name: "abc" })
+        .expect(200)
+        .expect("content-type", /json/);
+
+      expect(response.body.data).toEqual(null);
+    });
+  });
+
   describe("When the request is for a specific document", () => {
     it("Should update the specified document", async () => {
       await request(app)
