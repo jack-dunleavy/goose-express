@@ -4,8 +4,8 @@ import {
   badRequestDetail,
   badRequestErrors,
   notFoundErrors,
-} from "../../dist/lib/error-messages";
-import { BadRequestError, NotFoundError } from "../../dist/lib/errors";
+} from "../lib/error-messages";
+import { BadRequestError, NotFoundError } from "../lib/errors";
 import parseQuery from "../lib/parse-query";
 import Path from "../lib/Path";
 import { isValidOid } from "../lib/utils";

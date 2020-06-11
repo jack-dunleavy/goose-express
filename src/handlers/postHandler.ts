@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { Document, Model } from "mongoose";
 import { GooseExpressOptions } from "..";
-import { badRequestErrors } from "../../dist/lib/error-messages";
-import { BadRequestError } from "../../dist/lib/errors";
+import { badRequestErrors } from "../lib/error-messages";
+import { BadRequestError } from "../lib/errors";
 import Path from "../lib/Path";
 import { handleValidationErrors } from "../lib/validation";
 

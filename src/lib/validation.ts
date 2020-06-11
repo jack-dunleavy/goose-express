@@ -1,5 +1,5 @@
-import { badRequestErrors, ErrorDetail } from "../../dist/lib/error-messages";
-import { BadRequestError, InternalError } from "../../dist/lib/errors";
+import { badRequestErrors, ErrorDetail } from "../lib/error-messages";
+import { BadRequestError, InternalError } from "../lib/errors";
 
 export const handleValidationErrors = async (fn: any) => {
   try {

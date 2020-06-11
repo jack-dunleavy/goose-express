@@ -1,10 +1,6 @@
 import QueryString from "qs";
-import {
-  badRequestDetail,
-  badRequestErrors,
-} from "../../dist/lib/error-messages";
-import { BadRequestError } from "../../dist/lib/errors";
-import { parseJSONQueryParam } from "./utils";
+import { badRequestDetail, badRequestErrors } from "../lib/error-messages";
+import { BadRequestError } from "../lib/errors";
 
 type QueryParam =
   | string
@@ -46,6 +42,18 @@ const parseQuery = (query: { [key: string]: QueryParam }) => {
     projection: projection,
     multiplicity: multiplicity,
   };
+};
+
+const parseJSONQueryParam = (jsonString: string, field: string) => {
+  try {
+    const parsed = JSON.parse(jsonString);
+    return parsed;
+  } catch (e) {
+    throw new BadRequestError(
+      badRequestErrors.parsingQueryParamFailed(field),
+      badRequestDetail.parsingQueryParamFailed(field)
+    );
+  }
 };
 
 export default parseQuery;

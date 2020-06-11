@@ -30,7 +30,7 @@
   },
   "scripts": {
     "test": "jest --watchAll --no-cache",
-    "build": "npx tsc"
+    "build": "rm -rf dist && npx tsc"
   },
   "peerDependencies": {
     "express": "^4.17.1",
